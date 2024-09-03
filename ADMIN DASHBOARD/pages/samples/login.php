@@ -1,11 +1,16 @@
 <?php
 include '../../conn.php';
+session_start();
 if(isset($_POST['singIn'])){
   $em = $_POST['em'];
   $pass = $_POST['pass'];
   $sql = "SELECT * FROM `admin` WHERE a_email = '$em' AND a_pass = '$pass'";
   $res = mysqli_query($conn,$sql);
+  $row = mysqli_fetch_array($res);
   if(mysqli_num_rows($res) > 0){
+    $_SESSION['n']  = $row['a_name'];
+    $_SESSION['e']  = $row['a_email'];
+    $_SESSION['img']  = $row['a_img'];
     echo "<script>
     window.location.href = '../../index.php';
   </script>";

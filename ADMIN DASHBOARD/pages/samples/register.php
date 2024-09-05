@@ -3,11 +3,12 @@ include('../../conn.php');
 if(isset($_POST['adminReg'])){
   $un = $_POST['un'];
   $em = $_POST['em'];
-  $pass = $_POST['pass'];
+  $pass = $_POST['pass']; //bilal
+  $passHash = password_hash($pass,PASSWORD_DEFAULT);
   $ImgName = $_FILES['uimg']['name'];
   $ImgTmp = $_FILES['uimg']['tmp_name'];
   move_uploaded_file($ImgTmp,"../../adminImage/".$ImgName);
-  $sqlAdminRegister = "INSERT INTO `admin`(`a_name`, `a_email`, `a_pass`, `a_img`) VALUES ('$un','$em','$pass','$ImgName')";
+  $sqlAdminRegister = "INSERT INTO `admin`(`a_name`, `a_email`, `a_pass`, `a_img`) VALUES ('$un','$em','$passHash','$ImgName')";
  $res= mysqli_query($conn,$sqlAdminRegister);
  if($res){
   echo "<script>

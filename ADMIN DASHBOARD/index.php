@@ -108,10 +108,8 @@ if(!$_SESSION['e']){
                           </td>
                           <td><?php echo $row[1]; ?></td>
                           <td class="font-weight-bold">Rs <?php echo $row[2]; ?></td>
-                          <td><?php echo $row[4]; ?></td>
-                        
+                          <td><?php echo substr($row[4],0,15).'...';  ?></td>
                           <td><?php echo $row[7]; ?></td>
-                        
                         </tr>
                        <?php
                           }

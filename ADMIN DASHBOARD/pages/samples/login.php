@@ -3,20 +3,27 @@ include '../../conn.php';
 session_start();
 if(isset($_POST['singIn'])){
   $em = $_POST['em'];
-  $pass = $_POST['pass'];
-  $sql = "SELECT * FROM `admin` WHERE a_email = '$em' AND a_pass = '$pass'";
+  $pass = $_POST['pass'];//bilal
+  $sql = "SELECT * FROM `admin` WHERE a_email = '$em'";
   $res = mysqli_query($conn,$sql);
   $row = mysqli_fetch_array($res);
   if(mysqli_num_rows($res) > 0){
+    if(password_verify($pass,$row['a_pass'])){
     $_SESSION['n']  = $row['a_name'];
     $_SESSION['e']  = $row['a_email'];
     $_SESSION['img']  = $row['a_img'];
     echo "<script>
     window.location.href = '../../index.php';
   </script>";
+    }
+    else{
+      echo "<script>
+      alert('invalid password');
+    </script>";
+    }
   }else{
     echo "<script>
-    alert('invalid');
+    alert('invalid email');
   </script>";
   }
 }
